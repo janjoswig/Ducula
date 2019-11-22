@@ -1,5 +1,5 @@
-Ducula - An oh-my-zsh zsh-theme inspired by the Dracula project
-===============================================================
+Ducula - A zsh-theme inspired by the Dracula project
+====================================================
 
 Prompt features
 ---------------
@@ -12,9 +12,10 @@ Prompt features
  * Git messages: Uses `git_super_status` from the git-prompt plugin
  * Prompt time: Timestamp (hh:mm)
 
-Examples
---------
+Example
+-------
 
+![ducula prompt theme](https://github.com/janjoswig/blob/master/ducula_showcase.png)
 
 
 Installation
