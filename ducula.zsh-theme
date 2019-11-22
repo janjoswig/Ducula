@@ -5,6 +5,7 @@
 typeset -A host_abbrev
 typeset -A user_abbrev
 
+# TODO: outsource this mapping
 host_abbrev=(\
     'qcw21' "%{$fg[yellow]%}л"\
     'qcw01' "%{$fg[yellow]%}р1"\
@@ -89,7 +90,7 @@ local prompt_string="»"
 local time_string="%{$fg[magenta]%}%T"
 
 # Make prompt_string red if the previous command failed (and change bat to duck).
-local return_status="%(?:%{$fg[blue]%}🦇$prompt_string:%{$fg[red]%}🦆$?$prompt_string)"
+local return_status="%(?:%{$fg[blue]%}🦇$prompt_string:%{$fg[red]%}🦆%?$prompt_string)"
 
 # From agnoster theme:
 # SEGMENT_SEPARATOR=$'\ue0b0'
@@ -122,18 +123,22 @@ prompt_end() {
 
 job_status() {
   typeset -a job_running
-
-  # [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
-  # [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
-  [[ $(jobs -l | wc -l) -gt 0 ]] && job_running+="%{%F{cyan}%}⚙"
+ 
+  if [[ $(jobs -l | wc -l) -gt 0 ]]
+  then
+    job_running+="%{%F{cyan}%}☕ " # ⚙"
+  # else # maybe too distracting
+  #   job_running+="%{%F{cyan}%}⭐" 
+  fi
+  
   echo "$job_running"
 }
 
 # git-prompt options
-ZSH_THEME_GIT_PROMPT_PREFIX="("
-ZSH_THEME_GIT_PROMPT_SUFFIX=")"
+ZSH_THEME_GIT_PROMPT_PREFIX="" # "("
+ZSH_THEME_GIT_PROMPT_SUFFIX="" # ")"
 ZSH_THEME_GIT_PROMPT_SEPARATOR="|"
-ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}"
+ZSH_THEME_GIT_PROMPT_BRANCH=" %{$fg_bold[magenta]%}"
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[red]%}%{●%G%}"
 ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{✖%G%}"
 ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[blue]%}%{✚%G%}"
@@ -144,11 +149,13 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔%G%}"
 
 virtual_env() {
     typeset -a venv_prompt
-    venv_prompt+="$VIRTUAL_ENV"
-    echo "$venv_prompt"
+    if [[ ! -z "$VIRTUAL_ENV" ]]; then
+        venv_prompt+=" в:${VIRTUAL_ENV##*/}"
+    fi
+    echo "${venv_prompt}"
 } 
 
-PROMPT='$(job_status) ${user_name}${host_name} $(virtual_env) ${path_string} ${return_status} %{$reset_color%}'
-RPROMPT='$(git_super_status) ${time_string} %{$reset_color%}' 
+PROMPT='$(job_status)${user_name}${host_name}$(virtual_env) ${path_string}${return_status} %{$reset_color%}'
+RPROMPT='$(git_super_status) ${time_string}%{$reset_color%}' 
 
-# Symbols: ✗ 
+# Symbols: ✗ ✘ ⚡ ⭒ ⭲
