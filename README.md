@@ -37,4 +37,6 @@ The agnoster theme: <https://github.com/ohmyzsh/ohmyzsh/blob/master/themes/agnos
 
 The dieter theme: <https://github.com/ohmyzsh/ohmyzsh/blob/master/themes/dieter.zsh-theme>
 
+The git-prompt plugin: <https://github.com/olivierverdier/zsh-git-prompt>
+
 Dracula: I think the theme works best in connection with the [Dracula]{https://draculatheme.com/} color theme
