@@ -10,7 +10,7 @@ Prompt features
  * hostname abbreviations
  * current path
  * bat/duck return status (change this, if you think it is silly)
- * git messages
+ * git messages (uses `git_super_status` from the git-prompt plugin)
  * Timestamp (hh:mm)
 
 Installation
