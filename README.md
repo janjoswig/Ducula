@@ -5,6 +5,7 @@ A zsh-theme inspired by the Dracula project
 
 Prompt features
 ---------------
+ * job status 
  * virtual environment abbreviations (optimised for pyenv)
  * username abbreviations
  * hostname abbreviations
@@ -17,3 +18,12 @@ Installation
 ------------
 
 git clone git@github:janjoswig/Ducula.git ${ZSH_CUSTOM}/themes/Ducula
+
+Links
+-----
+
+R. Zhao
+dieter theme
+agnoster theme
+Dracula
+
