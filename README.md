@@ -15,7 +15,7 @@ Prompt features
 Example
 -------
 
-![ducula prompt theme](https://github.com/janjoswig/blob/master/ducula_showcase.png)
+![ducula prompt theme](ducula_showcase.png)
 
 
 Installation
