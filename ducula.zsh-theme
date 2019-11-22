@@ -1,11 +1,9 @@
-# Main prompt
-#
-
 # name abbreviations (from dieter theme)
 typeset -A host_abbrev
 typeset -A user_abbrev
 
 # TODO: outsource this mapping
+# change this mapping as you need it
 host_abbrev=(\
     'qcw21' "%{$fg[yellow]%}л"\
     'qcw01' "%{$fg[yellow]%}р1"\
@@ -83,7 +81,8 @@ user_abbrev=('janjoswig' "я")
 
 # @ host
 local host_name="%{$fg[white]%}@${host_abbrev[$HOST]:-$HOST}%{$reset_color%}"
-# user colored by priviliges (if not overridden in username abbreviation
+
+# user colored by priviliges (if not overridden in username abbreviation)
 local user_name="%(!.%{$fg[blue]%}.%{$fg[yellow]%})${user_abbrev[$USER]:-$USER}%{$reset_color%}"
 local path_string="%{$fg[cyan]%}%~"
 local prompt_string="»"
@@ -92,46 +91,18 @@ local time_string="%{$fg[magenta]%}%T"
 # Make prompt_string red if the previous command failed (and change bat to duck).
 local return_status="%(?:%{$fg[blue]%}🦇$prompt_string:%{$fg[red]%}🦆%?$prompt_string)"
 
-# From agnoster theme:
-# SEGMENT_SEPARATOR=$'\ue0b0'
-# Begin a segment
-# Takes two arguments, background and foreground. Both can be omitted,
-# rendering default background/foreground.
-prompt_segment() {
-  local bg fg
-  [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
-  [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
-  if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
-    echo -n " %{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%} "
-  else
-    echo -n "%{$bg%}%{$fg%} "
-  fi
-  CURRENT_BG=$1
-  [[ -n $3 ]] && echo -n $3
-}
-
-# End the prompt, closing any open segments
-prompt_end() {
-  if [[ -n $CURRENT_BG ]]; then
-    echo -n " %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
-  else
-    echo -n "%{%k%}"
-  fi
-  echo -n "%{%f%}"
-  CURRENT_BG=''
-}
-
+# From agnoster theme
 job_status() {
-  typeset -a job_running
- 
-  if [[ $(jobs -l | wc -l) -gt 0 ]]
-  then
-    job_running+="%{%F{cyan}%}☕ " # ⚙"
-  # else # maybe too distracting
-  #   job_running+="%{%F{cyan}%}⭐" 
-  fi
-  
-  echo "$job_running"
+    typeset -a job_running
+
+    if [[ $(jobs -l | wc -l) -gt 0 ]]
+    then
+        job_running+="%{%F{cyan}%}☕ "
+    # else # maybe too distracting
+    #   job_running+="%{%F{cyan}%}⭐ "
+    fi
+
+    echo "$job_running"
 }
 
 # git-prompt options
@@ -147,15 +118,18 @@ ZSH_THEME_GIT_PROMPT_AHEAD="%{↑%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{…%G%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔%G%}"
 
+# From agnoster theme
 virtual_env() {
     typeset -a venv_prompt
     if [[ ! -z "$VIRTUAL_ENV" ]]; then
         venv_prompt+=" в:${VIRTUAL_ENV##*/}"
     fi
     echo "${venv_prompt}"
-} 
+}
 
+# Left prompt
 PROMPT='$(job_status)${user_name}${host_name}$(virtual_env) ${path_string} ${return_status} %{$reset_color%}'
-RPROMPT='$(git_super_status) ${time_string}%{$reset_color%}' 
+# Right prompt
+RPROMPT='$(git_super_status) ${time_string}%{$reset_color%}'
 
-# Symbols: ✗ ✘ ⚡ ⭒ ⭲
+# Other symbols (scratch): ⚙ ✗ ✘ ⚡⭒ ⭲
