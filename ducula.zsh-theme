@@ -155,7 +155,7 @@ virtual_env() {
     echo "${venv_prompt}"
 } 
 
-PROMPT='$(job_status)${user_name}${host_name}$(virtual_env) ${path_string}${return_status} %{$reset_color%}'
+PROMPT='$(job_status)${user_name}${host_name}$(virtual_env) ${path_string} ${return_status} %{$reset_color%}'
 RPROMPT='$(git_super_status) ${time_string}%{$reset_color%}' 
 
 # Symbols: ✗ ✘ ⚡ ⭒ ⭲
