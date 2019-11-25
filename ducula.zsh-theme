@@ -122,10 +122,15 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔%G%}"
 virtual_env() {
     typeset -a venv_prompt
     if [[ ! -z "$VIRTUAL_ENV" ]]; then
-        venv_prompt+=" в:${VIRTUAL_ENV##*/}"
+        # venv_prompt+=" в:${VIRTUAL_ENV##*/}"
+        # Shorten venv name by first occurence of a hyphen (pipenv)
+        venv_prompt+=" $(echo "в:`basename $VIRTUAL_ENV`" | cut -d'-' -f1-1)"
     fi
     echo "${venv_prompt}"
 }
+
+# Don't let other actions to the virtual environment prompt interfere
+VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Left prompt
 PROMPT='$(job_status)${user_name}${host_name}$(virtual_env) ${path_string} ${return_status} %{$reset_color%}'
