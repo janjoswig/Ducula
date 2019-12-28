@@ -23,7 +23,7 @@ Installation
 
 Clone the repository into your custom oh-my-zsh themes folder:
 
-    git clone git@github:janjoswig/Ducula.git ${ZSH_CUSTOM}/themes/Ducula
+    git clone git@github.com:janjoswig/Ducula.git ${ZSH_CUSTOM}/themes/Ducula
 
 Set the theme in your .zshrc:
 
