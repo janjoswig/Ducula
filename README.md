@@ -9,7 +9,7 @@ Prompt features
  * Virtual environments: Shows the name of activated virtual environment via ${VIRTUAL_ENV}
  * Current path: Displays the full current working directory
  * Return status: Shows the error return code (:bat:/:duck:)
- * Git messages: Uses `git_super_status` from the git-prompt plugin
+ * Git messages: Uses `git_super_status` from the git-prompt plugin (set `DUCULA_ENABLE_GIT_STATUS=0` to disable)
  * Prompt time: Timestamp (hh:mm)
 
 Example
