@@ -60,7 +60,15 @@ VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Left prompt
 PROMPT='$(job_status)${user_name}${host_name}$(virtual_env) ${path_string} ${return_status} %{$reset_color%}'
+
+# Check if git status should be enabled (default: enabled)
+: ${DUCULA_ENABLE_GIT_STATUS:=1}
+
 # Right prompt
-RPROMPT='$(git_super_status) ${time_string}%{$reset_color%}'
+if [[ $DUCULA_ENABLE_GIT_STATUS -eq 1 ]]; then
+    RPROMPT='$(git_super_status) ${time_string}%{$reset_color%}'
+else
+    RPROMPT='${time_string}%{$reset_color%}'
+fi
 
 # Other symbols (scratch): ⚙ ✗ ✘ ⚡⭒ ⭲
